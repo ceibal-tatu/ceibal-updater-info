@@ -6,6 +6,18 @@ help(){
     echo ""
     echo "Usage:"
     echo "$0 <--pkg=package_name> --fecha_ult_act | --installed_udpate" 
+    echo
+    echo DESCRIPCION
+    echo ""
+    echo "  --pkg=NOMBRE_DEL_PAQUETE"
+    echo "         Opcional, si no se especifica se toma el nombre de paquete por defecto "ceibal-update""
+    echo ""
+    echo "  --fecha_ult_act"
+    echo "         Fecha en la que la actualizacion se instalo en la maquina."
+    echo ""
+    echo "  --installed_update"
+    echo "         Fecha en la que se genero y publico la actualizaion"
+    echo ""
 }
 
 die(){
@@ -14,15 +26,15 @@ die(){
 }
 
 fecha_ult_act(){
-    exit 0        
-}
-
-
-installed_update(){
     TMP_FILE=`mktemp`
     gunzip -c /usr/share/doc/${PKG_NAME}/changelog.Debian.gz > $TMP_FILE || die
     DATE=`dpkg-parsechangelog --count 1 --show-field Date -l$TMP_FILE` || die    
     echo `date -d "$DATE" +%Y%m%d`
+}
+
+
+installed_update(){
+    exit 0        
 }
 
 
