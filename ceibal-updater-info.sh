@@ -5,7 +5,7 @@ PKG_NAME="ceibal-update"
 help(){
     echo ""
     echo "Usage:"
-    echo "$0 <--pkg package_name> --fecha_ult_act | --installed_udpate" 
+    echo "$0 <--pkg=package_name> --fecha_ult_act | --installed_udpate" 
 }
 
 die(){
