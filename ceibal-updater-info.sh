@@ -13,10 +13,10 @@ help(){
     echo "         Opcional, si no se especifica se toma el nombre de paquete por defecto "ceibal-update""
     echo ""
     echo "  --fecha_ult_act"
-    echo "         Fecha en la que la actualizacion se instalo en la maquina."
+    echo "         Fecha en la que se genero y publico la actualizaion"
     echo ""
     echo "  --installed_update"
-    echo "         Fecha en la que se genero y publico la actualizaion"
+    echo "         Fecha en la que la actualizacion se instalo en la maquina."
     echo ""
 }
 
@@ -34,7 +34,17 @@ fecha_ult_act(){
 
 
 installed_update(){
-    exit 0        
+    for i in `ls -t /var/log/dpkg.log*`;do
+        if ( `echo $i | grep -q gz` );then
+            CMD=zcat
+        else
+            CMD=cat
+        fi
+        DATE=`$CMD $i | grep "install.${PKG_NAME}" | cut -f1 -d" " | sed s/-//g`
+        if [[ "$DATE" ]] ;then
+            echo $DATE
+        fi
+    done
 }
 
 
