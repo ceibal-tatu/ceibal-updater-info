@@ -27,7 +27,7 @@ die(){
 }
 
 fecha_ult_act(){
-    DATE=`zcat /usr/share/doc/${PKG_NAME}/changelog.Debian.gz 2>/dev/null | grep -m 1 "<.*@.*>" | cut -f2 -d">" | sed s/"  "//` || die
+    DATE=`zcat /usr/share/doc/${PKG_NAME}/changelog.*gz 2>/dev/null | grep -m 1 "<.*@.*>" | cut -f2 -d">" | sed s/"  "//` || die
     if [[ "$DATE" ]] ;then
         echo `date -d "$DATE" +%Y%m%d`
     fi
