@@ -44,6 +44,7 @@ installed_update(){
         DATE=`$CMD $i | grep "install.${PKG_NAME}" | cut -f1 -d" " | sed s/-//g`
         if [[ "$DATE" ]] ;then
             echo $DATE
+            return
         fi
     done
 }
