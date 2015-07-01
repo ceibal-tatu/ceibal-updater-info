@@ -5,6 +5,7 @@ PKG_NAME="ceibal-update"
 help(){
     echo ""
     echo "Usage:"
+    echo ""
     echo "$0 <--pkg=package_name> --fecha_ult_act | --installed_udpate" 
     echo
     echo DESCRIPCION
@@ -26,9 +27,7 @@ die(){
 }
 
 fecha_ult_act(){
-    TMP_FILE=`mktemp`
-    gunzip -c /usr/share/doc/${PKG_NAME}/changelog.Debian.gz > $TMP_FILE || die
-    DATE=`dpkg-parsechangelog --count 1 --show-field Date -l$TMP_FILE` || die    
+    DATE=`zcat /usr/share/doc/vim-common/changelog.Debian.gz | grep -m 1 "<.*@.*>" | cut -f2 -d">" | sed s/"  "//` || die
     echo `date -d "$DATE" +%Y%m%d`
 }
 
